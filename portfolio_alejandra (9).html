@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alejandra G. García — Coordinadora de Contenidos & Producción Audiovisual</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0f0f0f;--bg2:#161616;--bg3:#1e1e1e;
+    --border:rgba(255,255,255,0.08);--border-hover:rgba(255,255,255,0.18);
+    --text:#f0ece4;--text-muted:#888;--text-dim:#555;
+    --accent:#c9a96e;--accent2:#e8d5b0;--accent-dim:rgba(201,169,110,0.12);
+    --tag-bg:rgba(201,169,110,0.1);--tag-text:#c9a96e;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;font-size:16px;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(15,15,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+  .nav-name{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--text);text-decoration:none;}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{text-decoration:none;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--accent);}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0f0f0f 0%,#1a1510 50%,#0f0f0f 100%);}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,169,110,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,169,110,0.03) 1px,transparent 1px);background-size:60px 60px;}
+  .hero-content{position:relative;z-index:1;max-width:900px;}
+  .hero-label{font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.8rem;}
+  .hero-label::before{content:'';display:block;width:2rem;height:1px;background:var(--accent);}
+  .hero-title{font-family:'DM Serif Display',serif;font-size:clamp(3rem,7vw,6rem);line-height:1.05;color:var(--text);}
+  .hero-title em{font-style:italic;color:var(--accent);}
+  .hero-subtitle{font-size:clamp(1rem,2vw,1.3rem);color:var(--text-muted);font-weight:300;max-width:600px;margin-top:1.2rem;margin-bottom:3rem;}
+  .hero-stats{display:flex;gap:3rem;flex-wrap:wrap;}
+  .stat-num{font-family:'DM Serif Display',serif;font-size:2.2rem;color:var(--accent);line-height:1;display:block;}
+  .stat-label{font-size:0.8rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;}
+  .hero-scroll{position:absolute;bottom:2rem;right:3rem;font-size:0.75rem;color:var(--text-dim);letter-spacing:0.15em;text-transform:uppercase;writing-mode:vertical-rl;display:flex;align-items:center;gap:0.8rem;}
+  .hero-scroll::after{content:'';display:block;width:1px;height:3rem;background:linear-gradient(to bottom,var(--text-dim),transparent);}
+
+  /* SECCIONES */
+  section{padding:6rem 3rem;}
+  .section-label{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:0.8rem;}
+  .section-label::before{content:'';display:block;width:1.5rem;height:1px;background:var(--accent);}
+  .section-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,3rem);line-height:1.15;color:var(--text);margin-bottom:1rem;}
+  .section-desc{color:var(--text-muted);font-size:1rem;max-width:600px;margin-bottom:4rem;line-height:1.75;}
+
+  /* SOBRE MÍ */
+  #sobre{background:var(--bg2);}
+  .sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:1100px;}
+  .sobre-text p{color:var(--text-muted);line-height:1.85;margin-bottom:1.2rem;font-size:1rem;}
+  .sobre-text p strong{color:var(--text);font-weight:500;}
+  .skill-group{margin-bottom:2rem;}
+  .skill-group-title{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.8rem;}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:0.5rem;}
+  .skill-tag{background:var(--tag-bg);color:var(--tag-text);font-size:0.8rem;padding:0.3rem 0.8rem;border-radius:2px;border:1px solid rgba(201,169,110,0.2);}
+  .skill-tag.neutral{background:rgba(255,255,255,0.04);color:var(--text-muted);border-color:var(--border);}
+
+  /* REEL */
+  #reel{background:var(--bg);}
+  .reel-container{max-width:960px;margin:0 auto;}
+  .video-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:4px;background:#111;border:1px solid var(--border);}
+  .video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+  .reel-caption{text-align:center;margin-top:1.5rem;font-size:0.85rem;color:var(--text-dim);letter-spacing:0.05em;}
+
+  /* PROYECTOS DESTACADOS */
+  #proyectos{background:var(--bg);}
+  .filter-bar{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:3rem;}
+  .filter-btn{background:transparent;border:1px solid var(--border);color:var(--text-muted);font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.5rem 1.2rem;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+  .filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-dim);}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;}
+  .project-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:border-color 0.3s,transform 0.3s;}
+  .project-card:hover{border-color:var(--border-hover);transform:translateY(-3px);}
+  .project-thumb{position:relative;padding-bottom:56.25%;background:#111;overflow:hidden;}
+  .project-thumb iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;pointer-events:none;}
+  .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);transition:background 0.3s;cursor:pointer;}
+  .project-card:hover .play-overlay{background:rgba(0,0,0,0.1);}
+  .play-icon{width:48px;height:48px;border:2px solid rgba(255,255,255,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .play-icon::after{content:'';border:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-left:14px solid rgba(255,255,255,0.9);margin-left:3px;}
+  .project-info{padding:1.2rem 1.4rem 1.4rem;}
+  .project-category{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.4rem;}
+  .project-title{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--text);margin-bottom:0.3rem;line-height:1.3;}
+  .project-client{font-size:0.8rem;color:var(--text-dim);margin-bottom:0.7rem;}
+  .project-desc{font-size:0.88rem;color:var(--text-muted);line-height:1.65;margin-bottom:1rem;}
+  .project-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+  .project-tag{font-size:0.72rem;padding:0.2rem 0.6rem;background:rgba(255,255,255,0.04);color:var(--text-dim);border:1px solid var(--border);border-radius:2px;}
+  .extra-links{margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center;}
+  .extra-links-label{font-size:0.72rem;color:var(--text-dim);width:100%;margin-bottom:0.3rem;}
+  .extra-link{font-size:0.75rem;color:var(--accent);text-decoration:none;cursor:pointer;padding:0.2rem 0.5rem;border:1px solid rgba(201,169,110,0.25);border-radius:2px;transition:background 0.2s;}
+  .extra-link:hover{background:var(--accent-dim);}
+
+  /* ARCHIVO COMPLETO */
+  #archivo{background:var(--bg2);}
+  .archive-tabs{display:flex;gap:0;flex-wrap:wrap;margin-bottom:0;border-bottom:1px solid var(--border);}
+  .archive-tab{background:transparent;border:none;border-bottom:2px solid transparent;color:var(--text-muted);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.8rem 1.2rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;margin-bottom:-1px;}
+  .archive-tab:hover{color:var(--text);}
+  .archive-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+  .archive-panel{display:none;padding-top:3rem;}
+  .archive-panel.active{display:block;}
+  .archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;}
+  .archive-card{background:var(--bg3);border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:border-color 0.2s;}
+  .archive-card:hover{border-color:var(--border-hover);}
+  .archive-thumb{position:relative;padding-bottom:56.25%;background:#111;}
+  .archive-thumb iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;pointer-events:none;}
+  .archive-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);cursor:pointer;transition:background 0.2s;}
+  .archive-card:hover .archive-play{background:rgba(0,0,0,0.15);}
+  .archive-play-icon{width:36px;height:36px;border:1.5px solid rgba(255,255,255,0.65);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .archive-play-icon::after{content:'';border:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:10px solid rgba(255,255,255,0.85);margin-left:2px;}
+  .archive-info{padding:0.8rem 1rem;}
+  .archive-title{font-size:0.88rem;color:var(--text);margin-bottom:0.2rem;line-height:1.3;}
+  .archive-client{font-size:0.75rem;color:var(--text-dim);}
+  .archive-group-title{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin:2rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
+
+  /* BTS */
+  #bts{background:var(--bg);}
+  .bts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;}
+  .bts-item{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:border-color 0.3s;}
+  .bts-item:hover{border-color:var(--border-hover);}
+  .bts-thumb{position:relative;padding-bottom:56.25%;background:#111;}
+  .bts-thumb iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+  .bts-label{padding:0.8rem 1rem;font-size:0.82rem;color:var(--text-muted);}
+
+  /* CONTACTO */
+  #contacto{background:var(--bg);text-align:center;}
+  .contact-inner{max-width:600px;margin:0 auto;}
+  .contact-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.5rem);margin-bottom:1rem;line-height:1.1;}
+  .contact-title em{font-style:italic;color:var(--accent);}
+  .contact-desc{color:var(--text-muted);margin-bottom:2.5rem;font-size:1rem;line-height:1.75;}
+  .contact-links{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+  .contact-btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.9rem 2rem;text-decoration:none;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;border-radius:2px;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+  .contact-btn.primary{background:var(--accent);color:#0f0f0f;font-weight:500;}
+  .contact-btn.primary:hover{background:var(--accent2);}
+  .contact-btn.secondary{border:1px solid var(--border);color:var(--text-muted);}
+  .contact-btn.secondary:hover{border-color:var(--accent);color:var(--accent);}
+  .wave-credit{margin-top:1.2rem;font-size:0.78rem;color:var(--text-dim);}
+
+  /* MODAL */
+  .modal-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;padding:2rem;}
+  .modal-overlay.open{display:flex;}
+  .modal-inner{position:relative;width:100%;max-width:900px;}
+  .modal-close{position:absolute;top:-2.5rem;right:0;background:transparent;border:none;color:var(--text-muted);font-size:1.5rem;cursor:pointer;line-height:1;}
+  .modal-close:hover{color:var(--text);}
+  .modal-video{position:relative;padding-bottom:56.25%;height:0;background:#000;border-radius:4px;overflow:hidden;}
+  .modal-video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+
+  footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;color:var(--text-dim);}
+
+  @media(max-width:768px){
+    nav{padding:1rem 1.5rem;}
+    .nav-links{display:none;}
+    .hero{padding:0 1.5rem 4rem;}
+    section{padding:4rem 1.5rem;}
+    .sobre-grid{grid-template-columns:1fr;gap:3rem;}
+    .projects-grid{grid-template-columns:1fr;}
+    .archive-tabs{overflow-x:auto;}
+    footer{flex-direction:column;gap:0.5rem;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-name">Alejandra G. García</a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre mí</a></li>
+    <li><a href="#reel">Reel</a></li>
+    <li><a href="#proyectos">Destacados</a></li>
+    <li><a href="#archivo">Archivo</a></li>
+    <li><a href="#bts">BTS</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-label">Portfolio 2023 – 2026</div>
+    <h1 class="hero-title">Coordinadora de<br><em>Contenidos</em> &amp;<br>Producción Audiovisual</h1>
+    <p class="hero-subtitle">Produzco contenidos que mueven marcas. Coordino equipos, presupuestos y procesos para que la idea llegue a la pantalla sin perder ni calidad ni rentabilidad.</p>
+    <div class="hero-stats">
+      <div><span class="stat-num">15+</span><span class="stat-label">Años de experiencia</span></div>
+      <div><span class="stat-num">50+</span><span class="stat-label">Proyectos coordinados</span></div>
+      <div><span class="stat-num">5</span><span class="stat-label">Países de alcance</span></div>
+      <div><span class="stat-num">360°</span><span class="stat-label">Comunicación integral</span></div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section id="sobre">
+  <div class="section-label">Sobre mí</div>
+  <div class="sobre-grid">
+    <div class="sobre-text">
+      <h2 class="section-title">Quince años<br><em>haciendo que las cosas pasen.</em></h2>
+      <p>Empecé dirigiendo y produciendo desde cero en Córdoba, una experiencia que me permitió crecer, trabajar y recorrer gran parte del país. Hoy coordino unidades de contenido completas para marcas que operan en Argentina, Brasil, Perú, Uruguay y EE. UU. El camino fue largo, pero la lógica siempre fue la misma: <strong>que el resultado final justifique cada decisión del proceso.</strong></p>
+      <p>Mi fuerte es la coordinación operativa: desde el armado de presupuestos y la selección de proveedores hasta la supervisión técnica final. Trabajo bien en proyectos de alta complejidad, con equipos multidisciplinarios in-house y freelance, <strong>garantizando rentabilidad y calidad en cada entregable.</strong></p>
+      <p>Incorporo herramientas de IA generativa al flujo de producción con criterio técnico y estratégico — evalúo, selecciono y superviso su aplicación como <strong>ventaja competitiva real</strong> para cada proyecto.</p>
+      <p style="font-size:0.82rem;color:var(--text-dim);margin-top:1.5rem;">Los proyectos 2023–2026 fueron coordinados en mi rol en <strong style="color:var(--text-muted)">Wave Brands</strong>.</p>
+    </div>
+    <div>
+      <div class="skill-group">
+        <div class="skill-group-title">Especialidades</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Coordinación de producción</span>
+          <span class="skill-tag">Cobertura de eventos</span>
+          <span class="skill-tag">Spots publicitarios</span>
+          <span class="skill-tag">Contenido para redes</span>
+          <span class="skill-tag">Comunicación interna</span>
+          <span class="skill-tag">Coordinación de postproducción</span>
+          
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">IA Generativa aplicada</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Runway</span><span class="skill-tag">VEO3</span>
+          <span class="skill-tag">Seedance</span><span class="skill-tag">Higgsfield</span>
+          <span class="skill-tag">Midjourney</span><span class="skill-tag">Adobe Firefly</span>
+          <span class="skill-tag">ElevenLabs</span><span class="skill-tag">ChatGPT</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Herramientas de gestión</div>
+        <div class="skill-tags">
+          <span class="skill-tag neutral">COR</span><span class="skill-tag neutral">Trello</span>
+          <span class="skill-tag neutral">Notion</span><span class="skill-tag neutral">Slack</span>
+          <span class="skill-tag neutral">Suite Adobe</span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REEL -->
+<section id="reel">
+  <div class="section-label">Showreel</div>
+  <h2 class="section-title">Wave Brands Era: Contenidos Seleccionados</h2>
+  <p class="section-desc">Este reel refleja la transición de la producción ejecutiva a la dirección estratégica de piezas audiovisuales de alta complejidad. Una mirada a la coordinación integral de contenidos durante mi etapa en Wave Brands, liderando equipos multidisciplinarios y optimizando procesos de producción.</p>
+  <div class="reel-container">
+    <div class="video-wrapper">
+      <iframe src="https://player.vimeo.com/video/1161179085?h=ab53d023b1&autoplay=0&title=0&byline=0&portrait=0" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <p class="reel-caption">Selección de trabajos coordinados en Wave Brands · Dic. 2023 — Mar. 2026</p>
+  </div>
+</section>
+
+<!-- PROYECTOS DESTACADOS -->
+<section id="proyectos">
+  <div class="section-label">Proyectos destacados</div>
+  <h2 class="section-title">Proyectos que me enorgullecen</h2>
+  <p class="section-desc">No todos los proyectos en los que trabajé están aquí — elegí, de los más recientes, los que mejor cuentan lo que sé hacer.</p>
+
+  <div class="projects-grid" id="projects-grid">
+
+    <!-- ANDREANI SINFONÍA TEATRO COLÓN -->
+    <div class="project-card" data-cat="eventos">
+      <div class="project-thumb">
+        <iframe src="https://player.vimeo.com/video/1138643606?h=a01944a0f7&controls=0&title=0&byline=0" allowfullscreen></iframe>
+        <div class="play-overlay" onclick="openModal('https://player.vimeo.com/video/1138643606?h=a01944a0f7&autoplay=1')"><div class="play-icon"></div></div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Evento masivo</div>
+        <div class="project-title">Sinfonía Andreani — Teatro Colón</div>
+        <div class="project-client">Andreani · Wave Brands · 2025</div>
+        <p class="project-desc">Coordinación integral de la cobertura audiovisual y transmisión en vivo del concierto sinfónico en el Teatro Colón, con producción de contenido para redes post-evento.</p>
+        <div class="project-tags"><span class="project-tag">Teatro Colón</span><span class="project-tag">Live streaming</span><span class="project-tag">Cobertura</span></div>
+        <div class="extra-links">
+          <div class="extra-links-label">Ver también:</div>
+          <a class="extra-link" href="https://youtu.be/CkYGxLodD3s" target="_blank">YouTube · Sinfonía Andreani en vivo · Teatro Colón</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1133987490?h=bd2ab712df&autoplay=1');return false;" href="#">Recap Sinfonía</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANDREANI 80 AÑOS -->
+    <div class="project-card" data-cat="eventos">
+      <div class="project-thumb">
+        <iframe src="https://player.vimeo.com/video/1161184307?h=981d566a0c&controls=0&title=0&byline=0" allowfullscreen></iframe>
+        <div class="play-overlay" onclick="openModal('https://player.vimeo.com/video/1161184307?h=981d566a0c&autoplay=1')"><div class="play-icon"></div></div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Evento masivo · Campaña 80 años</div>
+        <div class="project-title">Andreani 80 Años — Gira Nacional</div>
+        <div class="project-client">Andreani · Wave Brands · 2024–2025</div>
+        <p class="project-desc">Coordinación de la producción audiovisual de la gira de eventos por los 80 años de Andreani: Pacheco (5.000 personas), Córdoba, Salta y Rosario. Gestión de múltiples equipos en simultáneo en todo el país.</p>
+        <div class="project-tags"><span class="project-tag">5.000 asistentes</span><span class="project-tag">Gira nacional</span><span class="project-tag">Multi-equipo</span></div>
+        <div class="extra-links">
+          <div class="extra-links-label">Ver eventos individuales:</div>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1071197147?h=3530fc558b&autoplay=1');return false;" href="#">Pacheco</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1113553896?h=bddc3d51e0&autoplay=1');return false;" href="#">Córdoba</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1117574430?h=014ed9d332&autoplay=1');return false;" href="#">Salta</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1091937825?h=bcbad453a5&autoplay=1');return false;" href="#">Rosario</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NUBIA CAMPAÑA VERANO -->
+    <div class="project-card" data-cat="campanas">
+      <div class="project-thumb">
+        <iframe src="https://player.vimeo.com/video/1046798605?h=8e50edf329&controls=0&title=0&byline=0" allowfullscreen></iframe>
+        <div class="play-overlay" onclick="openModal('https://player.vimeo.com/video/1046798605?h=8e50edf329&autoplay=1')"><div class="play-icon"></div></div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Shooting BTL · Lanzamiento de marca</div>
+        <div class="project-title">Nubia — Campaña Verano</div>
+        <div class="project-client">Nubia · Wave Brands · 2024</div>
+        <p class="project-desc">Coordinación integral del lanzamiento de marca: casting de actores, producción del shooting publicitario. Primera gran campaña de la marca en Argentina.</p>
+        <div class="project-tags"><span class="project-tag">Casting</span><span class="project-tag">Shooting BTL</span><span class="project-tag">Lanzamiento</span></div>
+        <div class="extra-links">
+          <div class="extra-links-label">Ver también:</div>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/996841142?h=19a98d9951&autoplay=1');return false;" href="#">Video Lanzamiento</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1053024539?h=714ab4fdea&autoplay=1');return false;" href="#">Playa Grande</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- AFTALESS BUCCALTACK -->
+    <div class="project-card" data-cat="campanas">
+      <div class="project-thumb">
+        <iframe src="https://player.vimeo.com/video/1016191751?h=925dae115f&controls=0&title=0&byline=0" allowfullscreen></iframe>
+        <div class="play-overlay" onclick="openModal('https://player.vimeo.com/video/1016191751?h=925dae115f&autoplay=1')"><div class="play-icon"></div></div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Spot publicitario · Lanzamiento de producto</div>
+        <div class="project-title">Aftaless — Buccaltack</div>
+        <div class="project-client">Aftaless · Wave Brands · 2024</div>
+        <p class="project-desc">Campaña integral de comunicación para lanzamiento de producto. Producción de alta complejidad técnica con actores. Spot publicitario + Shooting BTL en tres piezas.</p>
+        <div class="project-tags"><span class="project-tag">Spot con actores</span><span class="project-tag">BTL</span><span class="project-tag">Farmacéutico</span></div>
+        <div class="extra-links">
+          <div class="extra-links-label">Piezas de la campaña:</div>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1017671460?h=3f60d69a02&autoplay=1');return false;" href="#">Spot 2</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1017624333?h=7080a3c813&autoplay=1');return false;" href="#">Spot 3</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAN AMERICAN ENERGY BRASIL -->
+    <div class="project-card" data-cat="corporativo">
+      <div class="project-thumb">
+        <iframe src="https://player.vimeo.com/video/943312633?h=9abfde1205&controls=0&title=0&byline=0" allowfullscreen></iframe>
+        <div class="play-overlay" onclick="openModal('https://player.vimeo.com/video/943312633?h=9abfde1205&autoplay=1')"><div class="play-icon"></div></div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Producción internacional · Dirección</div>
+        <div class="project-title">Pan American Energy — Parque Eólico Brasil</div>
+        <div class="project-client">Pan American Energy · Wave Brands · 2024</div>
+        <p class="project-desc">Producción y dirección integral end-to-end: presupuesto y preproducción desde Argentina, rodaje en Brasil con equipo local, postproducción remota con equipo brasileño.</p>
+        <div class="project-tags"><span class="project-tag">Brasil</span><span class="project-tag">Dirección</span><span class="project-tag">End to end</span></div>
+      </div>
+    </div>
+
+    <!-- XIAOMI -->
+    <div class="project-card" data-cat="eventos campanas">
+      <div class="project-thumb">
+        <iframe src="https://player.vimeo.com/video/1168693397?h=67e4f78045&controls=0&title=0&byline=0" allowfullscreen></iframe>
+        <div class="play-overlay" onclick="openModal('https://player.vimeo.com/video/1168693397?h=67e4f78045&autoplay=1')"><div class="play-icon"></div></div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Contenido de marca · Postpro diferencial</div>
+        <div class="project-title">Xiaomi — Evento & Contenido Orgánico</div>
+        <div class="project-client">Xiaomi · Wave Brands · 2025</div>
+        <p class="project-desc">Coordinación y producción integral del evento de lanzamiento con postproducción diferencial: generamos material original de usabilidad de producto para integrarlo orgánicamente en la pieza final.</p>
+        <div class="project-tags"><span class="project-tag">Contenido orgánico</span><span class="project-tag">Postpro jugada</span><span class="project-tag">Tech</span></div>
+      </div>
+    </div>
+
+    <!-- MERCEDES BENZ -->
+    <div class="project-card" data-cat="eventos">
+      <div class="project-thumb">
+        <iframe src="https://player.vimeo.com/video/1146961152?h=7c6749e66e&controls=0&title=0&byline=0" allowfullscreen></iframe>
+        <div class="play-overlay" onclick="openModal('https://player.vimeo.com/video/1146961152?h=7c6749e66e&autoplay=1')"><div class="play-icon"></div></div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Evento corporativo premium</div>
+        <div class="project-title">Mercedes-Benz — Family Day</div>
+        <div class="project-client">Mercedes-Benz · Wave Brands · 2025</div>
+        <p class="project-desc">Coordinación de la cobertura audiovisual completa del Family Day. Producción de contenido para redes y material institucional del evento.</p>
+        <div class="project-tags"><span class="project-tag">Evento premium</span><span class="project-tag">Cobertura</span><span class="project-tag">Automotriz</span></div>
+      </div>
+    </div>
+
+    <!-- IDEA MANAGEMENT -->
+    <div class="project-card" data-cat="eventos">
+      <div class="project-thumb">
+        <iframe src="https://player.vimeo.com/video/1089836477?h=0ef8299abd&controls=0&title=0&byline=0" allowfullscreen></iframe>
+        <div class="play-overlay" onclick="openModal('https://player.vimeo.com/video/1089836477?h=0ef8299abd&autoplay=1')"><div class="play-icon"></div></div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Pantallas para eventos</div>
+        <div class="project-title">IDEA Management 2025</div>
+        <div class="project-client">IDEA · Wave Brands · 2024–2025</div>
+        <p class="project-desc">Producción de contenidos para pantallas en uno de los eventos de management más importantes del país. Coordinación de equipos interdisciplinarios en múltiples ediciones.</p>
+        <div class="project-tags"><span class="project-tag">Motion graphics</span><span class="project-tag">Pantallas LED</span><span class="project-tag">Management</span></div>
+        <div class="extra-links">
+          <div class="extra-links-label">Piezas del evento:</div>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1010282232?h=fa6aa2268a&autoplay=1');return false;" href="#">Célula Fiscal</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1124022434?h=1bd3c46ade&autoplay=1');return false;" href="#">Justicia Laboral</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1114859024?h=62d2194ea4&autoplay=1');return false;" href="#">Video Apertura</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1089836477?h=0ef8699abd&autoplay=1');return false;" href="#">Bienvenida</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1089833908?h=bb2651126e&autoplay=1');return false;" href="#">Loop arte</a>
+          <a class="extra-link" href="https://www.youtube.com/watch?v=q0UpWp9eX84" target="_blank">YouTube · Recap del evento</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEWMONT FALSAS ALARMAS -->
+    <div class="project-card" data-cat="corporativo">
+      <div class="project-thumb">
+        <iframe src="https://player.vimeo.com/video/1163730242?h=9fcb65e18f&controls=0&title=0&byline=0" allowfullscreen></iframe>
+        <div class="play-overlay" onclick="openModal('https://player.vimeo.com/video/1163730242?h=9fcb65e18f&autoplay=1')"><div class="play-icon"></div></div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Comunicación interna · Campaña serializada</div>
+        <div class="project-title">Newmont — "Falsas Alarmas"</div>
+        <div class="project-client">Newmont · Wave Brands · 2025–2026</div>
+        <p class="project-desc">Desarrollo integral de una campaña disruptiva de comunicación interna serializada en 5 capítulos. Intervine desde el presupuesto, coordinación del equipo y bajada creativa, hasta la propuesta estética y supervisión de postproducción.</p>
+        <div class="project-tags"><span class="project-tag">5 capítulos</span><span class="project-tag">Disruptiva</span><span class="project-tag">Dirección creativa</span></div>
+        <div class="extra-links">
+          <div class="extra-links-label">Ver capítulos:</div>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1163729863?h=d026201bdb&autoplay=1');return false;" href="#">Cap. 1</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1163729904?h=2bfe340b55&autoplay=1');return false;" href="#">Cap. 2</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1163729950?h=9f8a8fe038&autoplay=1');return false;" href="#">Cap. 3</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1163730002?h=69cb625ae4&autoplay=1');return false;" href="#">Cap. 4</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1163730036?h=5f1c96fd87&autoplay=1');return false;" href="#">Cap. 5</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NUBIA REDES UGC -->
+    <div class="project-card" data-cat="campanas">
+      <div class="project-thumb">
+        <iframe src="https://player.vimeo.com/video/1145956918?h=7e8a6b5615&controls=0&title=0&byline=0" allowfullscreen></iframe>
+        <div class="play-overlay" onclick="openModal('https://player.vimeo.com/video/1145956918?h=7e8a6b5615&autoplay=1')"><div class="play-icon"></div></div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Contenido para redes · UGC</div>
+        <div class="project-title">Nubia — Contenido & UGC 2025</div>
+        <div class="project-client">Nubia · Wave Brands · 2024–2025</div>
+        <p class="project-desc">Coordinación de la estrategia de contenidos para redes con UGC e influencers. Supervisión del flujo creativo para múltiples formatos y plataformas.</p>
+        <div class="project-tags"><span class="project-tag">UGC</span><span class="project-tag">Influencers</span><span class="project-tag">Multi-plataforma</span></div>
+        <div class="extra-links">
+          <div class="extra-links-label">Ver también:</div>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1128898277?h=f63e70b9ab&autoplay=1');return false;" href="#">Entrevista Festival</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABECEB -->
+    <div class="project-card" data-cat="evento pantallas">
+      <div class="project-thumb">
+        <iframe src="https://player.vimeo.com/video/1037590657?h=56cf10891d&controls=0&title=0&byline=0" allowfullscreen></iframe>
+        <div class="play-overlay" onclick="openModal('https://player.vimeo.com/video/1037590657?h=56cf10891d&autoplay=1')"><div class="play-icon"></div></div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Foro económico · Pantallas & Cobertura</div>
+        <div class="project-title">ABECEB — Foro 2024 & 2025</div>
+        <div class="project-client">ABECEB · Wave Brands · 2024–2025</div>
+        <p class="project-desc">Coordinación de producción audiovisual para el foro económico. Contenido para pantallas, cobertura del evento y material para redes.</p>
+        <div class="project-tags"><span class="project-tag">Foro económico</span><span class="project-tag">Pantallas</span><span class="project-tag">Cobertura</span></div>
+        <div class="extra-links">
+          <div class="extra-links-label">Ver también:</div>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1134050272?h=7af593a22e&autoplay=1');return false;" href="#">Chat ABECEB 2025</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRIDGESTONE -->
+    <div class="project-card" data-cat="campanas">
+      <div class="project-thumb">
+        <iframe src="https://player.vimeo.com/video/1012468992?h=f7821c4033&controls=0&title=0&byline=0" allowfullscreen></iframe>
+        <div class="play-overlay" onclick="openModal('https://player.vimeo.com/video/1012468992?h=f7821c4033&autoplay=1')"><div class="play-icon"></div></div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Evento & Cobertura deportiva</div>
+        <div class="project-title">Bridgestone — Toyota Gazoo Racing</div>
+        <div class="project-client">Bridgestone · Wave Brands · 2024</div>
+        <p class="project-desc">Coordinación de la cobertura del evento Gazoo Racing y producción de contenido para Pinamar. Producción de piezas en vivo y material para redes.</p>
+        <div class="project-tags"><span class="project-tag">Deportivo</span><span class="project-tag">Cobertura en vivo</span><span class="project-tag">Automovilismo</span></div>
+        <div class="extra-links">
+          <div class="extra-links-label">Ver también:</div>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1053007274?h=59f9901cfa&autoplay=1');return false;" href="#">Pinamar Spot 1</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1053759167?h=9f650a9879&autoplay=1');return false;" href="#">Pinamar Spot 2</a>
+          <a class="extra-link" onclick="openModal('https://player.vimeo.com/video/1011109092?h=a90de9624e&autoplay=1');return false;" href="#">Recap en vivo</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ARCHIVO COMPLETO -->
+<section id="archivo">
+  <div class="section-label">Archivo</div>
+  <h2 class="section-title">&#191;Quer&#237;as ver m&#225;s?</h2>
+  <p class="section-desc">No es un reel ni una selecci&#243;n &#8212; es gran parte del contenido que coordin&#233; y produje en Wave Brands estos &#250;ltimos a&#241;os, organizado para que puedas explorar a fondo. Si busc&#225;s algo puntual, probablemente est&#225; ac&#225; (y si no, me consult&#225;s).</p>
+
+  <div class="archive-tabs">
+    <button class="archive-tab active" onclick="switchTab('corporativo',this)">Corporativo</button>
+    <button class="archive-tab" onclick="switchTab('campanas',this)">Campa&#241;as</button>
+    <button class="archive-tab" onclick="switchTab('eventos',this)">Eventos</button>
+  </div>
+
+  <div class="archive-panel active" id="panel-corporativo">
+    <div class="archive-group-title">Videos institucionales</div>
+    <div class="archive-grid">
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/943312633?h=9abfde1205&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/943312633?h=9abfde1205&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Pan American Energy &#8212; Parque E&#243;lico Brasil</div><div class="archive-client">PAE · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/949255262?h=f478015d41&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/949255262?h=f478015d41&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">NTT Data &#8212; Premio Eikon</div><div class="archive-client">NTT Data · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/902942913?h=6715e8dc2e&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/902942913?h=6715e8dc2e&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">NTT Data &#8212; Top Employers 2024</div><div class="archive-client">NTT Data · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1045828105?h=7eaf264a9e&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1045828105?h=7eaf264a9e&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Visma &#8212; Video Institucional</div><div class="archive-client">Visma · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1035739598?h=4898e25bc7&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1035739598?h=4898e25bc7&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Barbieri &#8212; Hitos Uruguay</div><div class="archive-client">Barbieri · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1037946692?h=aa0451e9c8&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1037946692?h=aa0451e9c8&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Barbieri &#8212; Institucional</div><div class="archive-client">Barbieri · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1177071666?h=cbf75be490&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1177071666?h=cbf75be490&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Tiendas Mass &#8212; Institucional</div><div class="archive-client">Tiendas Mass · 2026</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1031154221?h=e140fe84b5&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1031154221?h=e140fe84b5&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Supermercados Peruanos &#8212; Hitos</div><div class="archive-client">SPM · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1108253146?h=cd2e7fbdaa&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1108253146?h=cd2e7fbdaa&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Newmont &#8212; Council of the Americas</div><div class="archive-client">Newmont · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/864718263?h=5b6f6b7271&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/864718263?h=5b6f6b7271&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Somos Newmont</div><div class="archive-client">Newmont · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1121288152?h=88090f1ba2&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1121288152?h=88090f1ba2&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani &#8212; Multiplataforma de Servicios</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/922973331?h=f4e58feae3&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/922973331?h=f4e58feae3&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Transener/Transba &#8212; Video Institucional</div><div class="archive-client">Transener · 2024</div></div></div>
+    </div>
+    <div class="archive-group-title">Comunicacion interna</div>
+    <div class="archive-grid">
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1163730242?h=9fcb65e18f&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1163730242?h=9fcb65e18f&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Newmont &#8212; Falsas Alarmas (Spot Completo)</div><div class="archive-client">Newmont · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1163729863?h=d026201bdb&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1163729863?h=d026201bdb&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Falsas Alarmas &#8212; Cap. 1 Vapor ba&#241;o</div><div class="archive-client">Newmont · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1163729904?h=2bfe340b55&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1163729904?h=2bfe340b55&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Falsas Alarmas &#8212; Cap. 2 Humo artificial</div><div class="archive-client">Newmont · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1163729950?h=9f8a8fe038&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1163729950?h=9f8a8fe038&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Falsas Alarmas &#8212; Cap. 3 Vapor directo</div><div class="archive-client">Newmont · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1163730002?h=69cb625ae4&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1163730002?h=69cb625ae4&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Falsas Alarmas &#8212; Cap. 4 Polvo</div><div class="archive-client">Newmont · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1163730036?h=5f1c96fd87&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1163730036?h=5f1c96fd87&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Falsas Alarmas &#8212; Cap. 5 Cierre</div><div class="archive-client">Newmont · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1158428188?h=cce01aaec4&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1158428188?h=cce01aaec4&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Newmont &#8212; Ergonom&#237;a</div><div class="archive-client">Newmont · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1143079665?h=72eebbf057&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1143079665?h=72eebbf057&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Newmont &#8212; EPPs Charla Abierta</div><div class="archive-client">Newmont · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1124336532?h=3c8ab7f40b&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1124336532?h=3c8ab7f40b&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani &#8212; Portal de Empleos</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1177482386?h=d8aae2e1df&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1177482386?h=d8aae2e1df&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani &#8212; Crecemos Juntos</div><div class="archive-client">Andreani · 2026</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1045139950?h=b5ebeab02f&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1045139950?h=b5ebeab02f&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">NTT Data &#8212; Top Employers 2025</div><div class="archive-client">NTT Data · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1143835115?h=edf429751b&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1143835115?h=edf429751b&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Don Pedro &#8212; D&#237;a del Camionero</div><div class="archive-client">Don Pedro · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1112750096?h=dc81f53db5&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1112750096?h=dc81f53db5&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Don Pedro &#8212; Streaming</div><div class="archive-client">Don Pedro · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1156085653?h=c4d5dbd301&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1156085653?h=c4d5dbd301&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani &#8212; Log&#237;stica Social</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1097531116?h=a1e8b060ac&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1097531116?h=a1e8b060ac&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Transener &#8212; Asesor&#237;a Remota</div><div class="archive-client">Transener · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/958614569?h=56934c2313&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/958614569?h=56934c2313&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Transener &#8212; Proceso Laboratorio</div><div class="archive-client">Transener · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1033210597?h=f354e24cc7&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1033210597?h=f354e24cc7&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Transener/Transba &#8212; Institucional</div><div class="archive-client">Transener · 2024</div></div></div>
+    </div>
+    <div class="archive-group-title">Podcast</div>
+    <div class="archive-grid">
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1170801186?h=a7fffe1db0&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1170801186?h=a7fffe1db0&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Newmont Podcast &#8212; Falsas Alarmas</div><div class="archive-client">Newmont · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1147446592?h=c0c56a85c8&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1147446592?h=c0c56a85c8&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Newmont Podcast &#8212; Flota de Veh&#237;culos</div><div class="archive-client">Newmont · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1148360016?h=de68e54dcb&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1148360016?h=de68e54dcb&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Newmont Podcast &#8212; Cuidados del Campamento</div><div class="archive-client">Newmont · 2025</div></div></div>
+    </div>
+  </div>
+
+  <div class="archive-panel" id="panel-campanas">
+    <div class="archive-group-title">Spots publicitarios</div>
+    <div class="archive-grid">
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1046798605?h=8e50edf329&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1046798605?h=8e50edf329&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Nubia &#8212; Shooting Campa&#241;a Verano</div><div class="archive-client">Nubia · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/996841142?h=19a98d9951&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/996841142?h=19a98d9951&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Nubia &#8212; Video Lanzamiento</div><div class="archive-client">Nubia · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1016191751?h=925dae115f&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1016191751?h=925dae115f&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Aftaless Buccaltack &#8212; Spot 1</div><div class="archive-client">Aftaless · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1017671460?h=3f60d69a02&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1017671460?h=3f60d69a02&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Aftaless Buccaltack &#8212; Spot 2</div><div class="archive-client">Aftaless · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1017624333?h=7080a3c813&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1017624333?h=7080a3c813&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Aftaless Buccaltack &#8212; Spot 3</div><div class="archive-client">Aftaless · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1023321836?h=3d5fe299e6&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1023321836?h=3d5fe299e6&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Barbieri &#8212; C&#225;psula Reasons Why</div><div class="archive-client">Barbieri · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1013382287?h=879cab68d2&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1013382287?h=879cab68d2&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Barbieri &#8212; Soluciones que Suman</div><div class="archive-client">Barbieri · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1116186740?h=b5468d1ef9&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1116186740?h=b5468d1ef9&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Tiendas Mass &#8212; Animado</div><div class="archive-client">Tiendas Mass · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1096292817?h=a0edaeb407&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1096292817?h=a0edaeb407&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Tiendas Mass &#8212; Video Tienda</div><div class="archive-client">Tiendas Mass · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1006684980?h=dfe7f88444&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1006684980?h=dfe7f88444&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Boston Scientific &#8212; Campa&#241;a</div><div class="archive-client">Boston Scientific · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/910177133?h=e2d9fec822&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/910177133?h=e2d9fec822&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Visma &#8212; Contagram Emprendedores</div><div class="archive-client">Visma · 2024</div></div></div>
+    </div>
+    <div class="archive-group-title">Redes sociales y contenido de producto</div>
+    <div class="archive-grid">
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1145956918?h=7e8a6b5615&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1145956918?h=7e8a6b5615&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Nubia &#8212; Redes 2025</div><div class="archive-client">Nubia · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1128898277?h=f63e70b9ab&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1128898277?h=f63e70b9ab&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Nubia &#8212; Entrevista Festival Monta&#241;a</div><div class="archive-client">Nubia · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1053024539?h=714ab4fdea&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1053024539?h=714ab4fdea&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Nubia Verano &#8212; Playa Grande</div><div class="archive-client">Nubia · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1012023550?h=48d5e416fc&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1012023550?h=48d5e416fc&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Visma Shorts 1 &#8212; Recibo de sueldo</div><div class="archive-client">Visma · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1012080655?h=01a2fdc633&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1012080655?h=01a2fdc633&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Visma Shorts 2 &#8212; Horas extra</div><div class="archive-client">Visma · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1013172640?h=20e01cea6f&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1013172640?h=20e01cea6f&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Visma Shorts 3 &#8212; Presentismo</div><div class="archive-client">Visma · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1014449699?h=aa89a5dec6&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1014449699?h=aa89a5dec6&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Visma Shorts 11 &#8212; Dress code</div><div class="archive-client">Visma · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1069966170?h=3dc0a2efc8&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1069966170?h=3dc0a2efc8&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Visma &#8212; Gran Final</div><div class="archive-client">Visma · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1168845561?h=8a797b2f1b&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1168845561?h=8a797b2f1b&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Don Pedro &#8212; Trend Cami&#243;n</div><div class="archive-client">Don Pedro · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1147411116?h=2984e22880&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1147411116?h=2984e22880&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Don Pedro &#8212; D&#237;a del Camionero</div><div class="archive-client">Don Pedro · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1178963462?h=dee40678f7&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1178963462?h=dee40678f7&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani &#8212; Invitaci&#243;n EPyMEs Day</div><div class="archive-client">Andreani · 2026</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1150482878?h=50f537bcde&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1150482878?h=50f537bcde&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani UGC &#8212; Desayuno CIT 1</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1150482964?h=1428c869e3&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1150482964?h=1428c869e3&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani UGC &#8212; Desayuno CIT 2</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1133609888?h=c5a603a4da&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1133609888?h=c5a603a4da&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani RRSS &#8212; Enviar y recibir</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1136247724?h=77a77bb83b&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1136247724?h=77a77bb83b&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani RRSS</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1138622776?h=b65ff37d38&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1138622776?h=b65ff37d38&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani x Pauli</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1011109092?h=a90de9624e&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1011109092?h=a90de9624e&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Bridgestone &#8212; Recap en vivo Gazoo Racing</div><div class="archive-client">Bridgestone · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1118717885?h=cccf5695f7&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1118717885?h=cccf5695f7&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">SPM &#8212; Stand VR/360 Perumin</div><div class="archive-client">SPM · 2025</div></div></div>
+    </div>
+    <div class="archive-group-title">Activaciones BTL</div>
+    <div class="archive-grid">
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1053007274?h=59f9901cfa&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1053007274?h=59f9901cfa&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Bridgestone &#8212; Pinamar Spot 1</div><div class="archive-client">Bridgestone · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1053759167?h=9f650a9879&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1053759167?h=9f650a9879&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Bridgestone &#8212; Pinamar Spot 2</div><div class="archive-client">Bridgestone · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1012468992?h=f7821c4033&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1012468992?h=f7821c4033&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Bridgestone &#8212; Toyota Gazoo Racing</div><div class="archive-client">Bridgestone · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1105211841?h=208cfa803b&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1105211841?h=208cfa803b&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Epson &#8212; Activaci&#243;n Paste Up</div><div class="archive-client">Epson · 2025</div></div></div>
+    </div>
+  </div>
+
+  <div class="archive-panel" id="panel-eventos">
+    <div class="archive-group-title">Cobertura de eventos</div>
+    <div class="archive-grid">
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1138643606?h=a01944a0f7&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1138643606?h=a01944a0f7&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Sinfonía Andreani &#8212; Teatro Colón</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1161184307?h=981d566a0c&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1161184307?h=981d566a0c&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani 80 A&#241;os &#8212; Recap General 2025</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1071197147?h=3530fc558b&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1071197147?h=3530fc558b&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani 80 A&#241;os &#8212; Pacheco</div><div class="archive-client">Andreani · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1113553896?h=bddc3d51e0&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1113553896?h=bddc3d51e0&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani 80 A&#241;os &#8212; C&#243;rdoba</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1117574430?h=014ed9d332&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1117574430?h=014ed9d332&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani 80 A&#241;os &#8212; Salta</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1091937825?h=bcbad453a5&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1091937825?h=bcbad453a5&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani 80 A&#241;os &#8212; Rosario</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1133987490?h=bd2ab712df&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1133987490?h=bd2ab712df&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Andreani &#8212; Recap Sinfonía</div><div class="archive-client">Andreani · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1168693397?h=67e4f78045&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1168693397?h=67e4f78045&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Xiaomi x Wave &#8212; Recap</div><div class="archive-client">Xiaomi · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1146961152?h=7c6749e66e&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1146961152?h=7c6749e66e&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Mercedes-Benz Family Day</div><div class="archive-client">Mercedes-Benz · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1014548522?h=dcbbbe996d&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1014548522?h=dcbbbe996d&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">NTT Data &#8212; Nerdearla 2024</div><div class="archive-client">NTT Data · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1146689190?h=98f78c375a&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1146689190?h=98f78c375a&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Don Pedro &#8212; Evento Nueva Era 2025</div><div class="archive-client">Don Pedro · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1147820437?h=c29201ea6a&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1147820437?h=c29201ea6a&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Tiendas Mass &#8212; Evento</div><div class="archive-client">Tiendas Mass · 2025</div></div></div>
+    </div>
+    <div class="archive-group-title">Stands y ferias</div>
+    <div class="archive-grid">
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1002014317?h=6dda4a78ea&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1002014317?h=6dda4a78ea&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Boston Solaci &#8212; Pantallas y Cobertura Stand</div><div class="archive-client">Boston Scientific · 2024</div></div></div>
+    </div>
+    <div class="archive-group-title">Pantallas, tecnica y lanzamientos</div>
+    <div class="archive-grid">
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1010282232?h=fa6aa2268a&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1010282232?h=fa6aa2268a&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">60° Coloquio IDEA &#8212; C&#233;lula Fiscal</div><div class="archive-client">IDEA · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1124022434?h=1bd3c46ade&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1124022434?h=1bd3c46ade&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">IDEA &#8212; Panel Justicia Laboral</div><div class="archive-client">IDEA · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1114859024?h=62d2194ea4&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1114859024?h=62d2194ea4&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Coloquio IDEA &#8212; Video Apertura</div><div class="archive-client">IDEA · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1089836477?h=0ef8299abd&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1089836477?h=0ef8299abd&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">IDEA Management &#8212; Pantalla Bienvenida</div><div class="archive-client">IDEA · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1089833908?h=bb2651126e&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1089833908?h=bb2651126e&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">IDEA Management &#8212; Loop Arte Animado</div><div class="archive-client">IDEA · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1115500181?h=f93eee491c&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1115500181?h=f93eee491c&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Movimiento Industrial &#8212; Fabricando Futuro</div><div class="archive-client">Mov. Industrial · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1037590657?h=56cf10891d&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1037590657?h=56cf10891d&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">ABECEB &#8212; Recap 2024</div><div class="archive-client">ABECEB · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1134050272?h=7af593a22e&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1134050272?h=7af593a22e&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Chat ABECEB 2025</div><div class="archive-client">ABECEB · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1025495414?h=d7f18141d1&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1025495414?h=d7f18141d1&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Fintech Forum &#8212; Pantallas y Cobertura</div><div class="archive-client">Fintech Forum · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/832703252?h=4614b211fc&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/832703252?h=4614b211fc&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">NTT Data &#8212; Video Apertura</div><div class="archive-client">NTT Data · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1087255227?h=00530a09ea&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1087255227?h=00530a09ea&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Newmont &#8212; Recap Expo Minera 2024</div><div class="archive-client">Newmont · 2024</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1145701430?h=9289a799df&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1145701430?h=9289a799df&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Transener &#8212; Fiesta Fin de A&#241;o 2025</div><div class="archive-client">Transener · 2025</div></div></div>
+      <div class="archive-card"><div class="archive-thumb"><iframe src="https://player.vimeo.com/video/1141178685?h=88429cc503&controls=0&title=0&byline=0" allowfullscreen></iframe><div class="archive-play" onclick="openModal('https://player.vimeo.com/video/1141178685?h=88429cc503&autoplay=1')"><div class="archive-play-icon"></div></div></div><div class="archive-info"><div class="archive-title">Transener &#8212; Logo ADN y Celebra</div><div class="archive-client">Transener · 2025</div></div></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contact-inner">
+    <h2 class="contact-title">¿Arrancamos <em>algo?</em></h2>
+    <p class="contact-desc">Estoy disponible para proyectos, roles de coordinación o simplemente para tomar un café y ver si hay algo que hacer juntos. Si llegaste hasta acá, ya tenemos algo en común.</p>
+    <div class="contact-links">
+      <a href="mailto:aggproductora@gmail.com" class="contact-btn primary">aggproductora@gmail.com</a>
+      <a href="https://www.linkedin.com/in/alejandra-g-garcia/" target="_blank" class="contact-btn secondary">LinkedIn</a>
+      <a href="https://wa.me/5491124092081?text=Hola%20Alejandra%2C%20te%20escrib%C3%ADa%20por%20tu%20portfolio" target="_blank" class="contact-btn secondary">WhatsApp</a>
+    </div>
+    <p class="wave-credit">Los proyectos 2023–2026 fueron realizados como Coordinadora de Contenidos en Wave Brands.</p>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Alejandra G. García</span>
+  <span>Coordinadora de Contenidos & Producción Audiovisual</span>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-video">
+      <iframe id="modal-iframe" src="" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+function openModal(url){document.getElementById('modal-iframe').src=url;document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(e){if(e&&e.target!==document.getElementById('modal'))return;document.getElementById('modal-iframe').src='';document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+function switchTab(panel,btn){document.querySelectorAll('.archive-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.archive-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('panel-'+panel).classList.add('active');}
+</script>
+</body>
+</html>
