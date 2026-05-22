@@ -636,11 +636,131 @@
 
 </section>
 
+<!-- BTS -->
+<section id="bts">
+  <div class="section-label">Behind The Scenes</div>
+  <h2 class="section-title">Detr&aacute;s de c&aacute;mara</h2>
+  <p class="section-desc">El proceso detr&aacute;s de los proyectos. Rodajes, operativos y momentos de producci&oacute;n.</p>
+  <div class="bts-grid">
+
+    <div class="bts-item">
+      <div class="bts-thumb">
+        <iframe src="https://player.vimeo.com/video/1073232443?h=0d59bb1d97" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+      </div>
+      <div class="bts-label">BTS Andreani Evento Pacheco &mdash; 80 A&ntilde;os</div>
+    </div>
+
+    <div class="bts-item">
+      <div class="bts-thumb">
+        <iframe src="https://player.vimeo.com/video/1114264244?h=1fe17d6e6e" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+      </div>
+      <div class="bts-label">BTS Andreani Evento C&oacute;rdoba &mdash; 80 A&ntilde;os</div>
+    </div>
+
+    <div class="bts-item">
+      <div class="bts-thumb">
+        <iframe src="https://player.vimeo.com/video/1171935915?h=ec14691b9a" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+      </div>
+      <div class="bts-label">BTS Xiaomi &mdash; Versi&oacute;n LinkedIn</div>
+    </div>
+
+    <div class="bts-item">
+      <div class="bts-thumb">
+        <iframe src="https://player.vimeo.com/video/1170002784?h=9ca5f7784b" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+      </div>
+      <div class="bts-label">BTS Xiaomi &mdash; RRSS</div>
+    </div>
+
+    <div class="bts-item">
+      <div class="bts-thumb">
+        <iframe src="https://player.vimeo.com/video/1148712275?h=e5f49e4014" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+      </div>
+      <div class="bts-label">BTS Mercedes-Benz Family Day 2025</div>
+    </div>
+
+    <div class="bts-item">
+      <div class="bts-thumb">
+        <iframe src="https://player.vimeo.com/video/1109438424?h=9e2ab42d53" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+      </div>
+      <div class="bts-label">Wave &mdash; Experimento IA</div>
+    </div>
+
+    <div class="bts-item">
+      <div class="bts-thumb">
+        <iframe src="https://player.vimeo.com/video/1046798605?h=8e50edf329" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+      </div>
+      <div class="bts-label">BTS Nubia &mdash; Shooting Campa&ntilde;a Verano</div>
+    </div>
+
+    <div class="bts-item">
+      <div class="bts-thumb">
+        <iframe src="https://player.vimeo.com/video/1084424721?h=fb2d3104bb" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+      </div>
+      <div class="bts-label">BTS Video Caso &mdash; Nubia</div>
+    </div>
+
+    <div class="bts-item">
+      <div class="bts-thumb">
+        <iframe src="https://player.vimeo.com/video/1145956918?h=7e8a6b5615" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+      </div>
+      <div class="bts-label">Nubia &mdash; Contenido para Redes</div>
+    </div>
+
+  </div>
+</section>
+
 <!-- CONTACTO -->
 <section id="contacto">
   <div class="contact-inner">
-    <h2 class="contact-title">¿Trabajamos <em>juntos?</em></h2>
-    <p class="contact-desc">Disponible para roles de account management, coordinación de contenidos y producción en agencias creativas, marcas in-house o productoras.</p>
+    <h2 class="contact-title">&iquest;Trabajamos <em>juntos?</em></h2>
+    <p class="contact-desc">Disponible para roles de account management, coordinaci&oacute;n de contenidos y producci&oacute;n en agencias creativas, marcas in-house o productoras.</p>
     <div class="contact-links">
       <a href="mailto:aggproductora@gmail.com" class="contact-btn primary">aggproductora@gmail.com</a>
-      <a href="https://www.linkedin.com/in/alejandra-g-garcia/" target="_blank" class="contact-btn secondary">LinkedI
+      <a href="https://www.linkedin.com/in/alejandra-g-garcia/" target="_blank" class="contact-btn secondary">LinkedIn</a>
+    </div>
+    <p class="wave-credit">Proyectos 2023&ndash;2026 coordinados en Wave Brands.</p>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeModal()">&#215;</button>
+    <div class="modal-video">
+      <iframe id="modal-iframe" src="" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>&copy; 2026 Alejandra G. Garc&iacute;a</span>
+  <span>Buenos Aires, Argentina</span>
+</footer>
+
+<script>
+function openModal(src) {
+  document.getElementById('modal-iframe').src = src;
+  var overlay = document.getElementById('modal-overlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal-iframe').src = '';
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function switchTab(name, btn) {
+  document.querySelectorAll('.archive-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.archive-tab').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('panel-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+</html>
